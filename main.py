@@ -2,7 +2,11 @@ from os import listdir
 from tika import parser
 
 
-def is_Containerid(containerID):
+def is_containerid(containerID):
+    """
+    :param containerID:
+    :return:
+    """
     containerID = str(containerID)
     containerID = containerID.strip()
     containerID = containerID.upper()
