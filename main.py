@@ -2,24 +2,24 @@ from os import listdir
 from tika import parser
 
 
-def is_containerid(containerID):
+def is_containerid(containerid):
     """
-    :param containerID:
+    :param containerid:
     :return:
     """
-    containerID = str(containerID)
-    containerID = containerID.strip()
-    containerID = containerID.upper()
+    containerid = str(containerid)
+    containerid = containerid.strip()
+    containerid = containerid.upper()
     result = [True, True, True]
 
-    if len(containerID) != 7:
+    if len(containerid) != 7:
         return [not i for i in result]
-    elif containerID[0:4].isalpha() and \
-            containerID[4:12].isdigit() and\
-            containerID[3] in 'JRUZ':
-        if containerID[3] is not 'U':
+    elif containerid[0:4].isalpha() and \
+            containerid[4:12].isdigit() and \
+                    containerid[3] in 'JRUZ':
+        if containerid[3] is not 'U':
             result[1] = False
-        if not __is_iso6346(containerID):
+        if not __is_iso6346(containerid):
             result[3] = False
 
     return result
@@ -41,12 +41,12 @@ def main():
     container = []
     path = 'C:/docs/'
     files = [path + f for f in listdir(path)]
-    for doc in files:
-        text = parser.from_file(doc)
-        with open("Output.txt", "w") as text_file:
+    with open("Output.txt", "w") as text_file:
+        for doc in files:
+            text = parser.from_file(doc)
             # text_file.write("Purchase Amount: {0}".format(TotalAmount))
             text_file.writelines(text['content'])
-        # print(text['content'])
+            # print(text['content'])
 
 
 if __name__ == '__main__':
