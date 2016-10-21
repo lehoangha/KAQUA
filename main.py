@@ -1,11 +1,15 @@
+#!/usr/bin/python
+# -*- coding: utf-8 -*-
+
 from os import listdir
 from tika import parser
+import magic
 
 
 def is_containerid(containerID):
     """
     :param containerID:
-    :return:
+    :return: [True if container ID is valid, True if container ID is freight, True if container ID is ISO]
     """
     containerID = str(containerID)
     containerID = containerID.strip()
@@ -39,14 +43,16 @@ def __is_iso6346(containerID):
 
 def main():
     container = []
-    path = 'C:/docs/'
+    path = 'C:/docs_pdf/'
     files = [path + f for f in listdir(path)]
     for doc in files:
-        text = parser.from_file(doc)
-        with open("Output.txt", "w") as text_file:
-            # text_file.write("Purchase Amount: {0}".format(TotalAmount))
-            text_file.writelines(text['content'])
-        # print(text['content'])
+        if magic.from_file(doc, mime=True) is 'application/pdf':
+            text = parser.from_file(doc)
+            with open("Output.txt", "w") as text_file:
+                # text_file.write("Purchase Amount: {0}".format(TotalAmount))
+                text_file.writelines(text['content'])
+        #     print(text['content'])
+                print(doc)
 
 
 if __name__ == '__main__':
