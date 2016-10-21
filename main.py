@@ -47,6 +47,7 @@ def main():
             # text_file.write("Purchase Amount: {0}".format(TotalAmount))
             text_file.writelines(text['content'])
             # print(text['content'])
+            print(doc)
 
 
 if __name__ == '__main__':
